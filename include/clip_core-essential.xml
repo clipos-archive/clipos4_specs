@@ -1,0 +1,178 @@
+	<config>
+		<confname>core-essential</confname>
+		<use>minimal</use>
+		<env>DEB_ESSENTIAL=y, DEB_PRIORITY=Required</env>
+		<keywords>
+			sys-fs/dosfstools ~x86 ~arm
+#ifdef CLIP_KERNEL_3_14
+			clip-data/clip-hardware ~x86
+			sys-kernel/clip-kernel ~x86
+#endif
+#ifdef CLIP_KERNEL_4_9
+			sys-kernel/clip-kernel ~x86
+#endif
+		</keywords>
+		<virtuals>
+			virtual/dev-manager clip-layout/baselayout-clip
+			virtual/baselayout sys-apps/baselayout
+		</virtuals>
+#ifdef CLIP_ARCH_x86
+		<pkg>
+			<pkgkey>v86</pkgkey>
+			<pkgnames>
+				sys-apps/v86d
+			</pkgnames>
+			<use>x86emu</use>
+		</pkg>
+#endif
+		<pkg>
+			<pkgkey>libs</pkgkey>
+			<pkgnames>
+				clip-libs/clip-sub
+				clip-libs/libacidfile
+				clip-libs/libacidcrypt
+				sys-libs/db
+				sys-libs/ncurses
+				sys-libs/zlib
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>gcc-lib</pkgkey>
+			<pkgnames>
+#ifdef CLIP_ARCH_amd64
+				sys-devel/gcc:5
+#else
+				sys-devel/gcc:4.7
+#endif
+			</pkgnames>
+			<use>-fortran -openmp</use>
+			<env>DEB_NAME_SUFFIX=-lib</env>
+		</pkg>
+		<pkg>
+			<pkgkey>libc</pkgkey>
+			<pkgnames>
+				sys-libs/glibc
+			</pkgnames>
+			<use>nls glibc-omitfp</use>
+		</pkg>
+		<pkg>
+			<pkgkey>apps</pkgkey>
+			<pkgnames>
+				app-arch/bzip2
+				app-arch/gzip
+				app-shells/bash
+				clip-layout/baselayout-clip
+				sys-apps/openrc
+				sys-apps/coreutils
+				sys-apps/debianutils
+				sys-apps/gawk
+				sys-apps/grep
+				sys-apps/kbd
+				sys-apps/sed
+				sys-apps/util-linux
+				sys-fs/e2fsprogs
+			</pkgnames>
+			<use>nousuid -suid</use>
+		</pkg>
+		<pkg>
+			<pkgkey>init</pkgkey>
+			<pkgnames>
+				sys-apps/sysvinit
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>hw-profiles</pkgkey>
+			<pkgnames>
+				clip-data/clip-hardware
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>kernel-modular</pkgkey>
+			<pkgnames>
+#ifdef CLIP_KERNEL_3_14
+				=sys-kernel/clip-kernel-3.14*
+#endif
+#ifndef CLIP_KERNEL_3_14
+#ifndef CLIP_KERNEL_4_9
+				=sys-kernel/clip-kernel-4.4*
+#endif
+#endif
+#ifdef CLIP_KERNEL_4_9
+				=sys-kernel/clip-kernel-4.9*
+#endif
+			</pkgnames>
+			<use>
+				clip-modular
+			</use>
+		</pkg>
+		<pkg>
+			<pkgkey>libusb1</pkgkey>
+			<pkgnames>
+				=dev-libs/libusb-1*
+			</pkgnames>
+			<env>DEB_NAME_SUFFIX=1</env>
+		</pkg>
+		<pkg>
+			<pkgkey>usbswitch</pkgkey>
+			<pkgnames>
+				=dev-libs/libusb-0*
+				sys-apps/ozerocdoff
+				sys-apps/usb_modeswitch
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>update</pkgkey>
+			<pkgnames>
+				app-arch/dpkg
+				app-clip/clip-download
+				app-clip/clip-install-common
+				app-clip/clip-install-clip
+				app-crypt/gen-crypt
+#ifdef CLIP_CIVIL
+				dev-libs/openssl
+#else
+				clip-libs/libacidfile
+				app-crypt/ccsd-sign
+#endif
+			</pkgnames>
+			<use>bzip2 lzma unicode -nls</use>
+		</pkg>
+		<pkg>
+			<pkgkey>tar</pkgkey>
+			<pkgnames>
+				app-arch/tar
+			</pkgnames>
+			<env>CLIP_VROOTS=/ /update_root</env>
+		</pkg>
+		<pkg>
+			<pkgkey>apt</pkgkey>
+			<pkgnames>
+				net-misc/curl
+				sys-apps/apt
+			</pkgnames>
+			<env>VERIEXEC_CTX=501</env>
+		</pkg>
+		<pkg>
+			<pkgkey>devicemanagement</pkgkey>
+			<pkgnames>
+				app-clip/clip-beacon
+			</pkgnames>
+			<env>DEB_NAME_SUFFIX=-update, VERIEXEC_CTX=501</env>
+		</pkg>
+		<pkg>
+			<pkgkey>perl</pkgkey>
+			<pkgnames>
+				dev-lang/perl
+				dev-perl/File-Copy-Recursive
+				dev-perl/Sort-Versions
+				dev-perl/CLIP-Logger
+				dev-perl/CLIP-Mount
+				dev-perl/CLIP-Pkg-Base
+				dev-perl/CLIP-Pkg-Download
+				dev-perl/CLIP-Pkg-Install
+				dev-perl/CLIP-Conf-Base
+				dev-perl/TimeDate
+			</pkgnames>
+			<use>-nls</use>
+		</pkg>
+	</config>

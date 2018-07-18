@@ -1,0 +1,56 @@
+	<config>
+		<confname>pkgs-main</confname>
+		<env>CPREFIX=/usr/local</env>
+		<ldflags>-Wl,-rpath,/usr/local/lib</ldflags>
+		<provided>sys-kernel/gentoo-sources-2.6.15-r7
+			sys-apps/baselayout-1.11.14-r6
+			<!-- Needed to protect the build host system against target baselayout
+			     It will be merged explicitly to the target -->
+			clip-layout/baselayout-clip-1.0-r1
+		</provided>
+		<keywords>
+				clip-conf/clip-apps-conf ~x86 ~arm
+		</keywords>
+		<pkg>
+			<pkgkey>config</pkgkey>
+			<pkgnames>
+				clip-conf/clip-apps-conf
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>usrclt-user</pkgkey>
+			<pkgnames>
+				app-clip/userd-client
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>ssh-client</pkgkey>
+			<pkgnames>
+				net-misc/openssh
+			</pkgnames>
+			<use>-pam -server</use>
+			<env>VERIEXEC_CTX=502</env>
+		</pkg>
+		<pkg>
+			<pkgkey>ssh-audit</pkgkey>
+			<pkgnames>
+				net-misc/openssh
+			</pkgnames>
+			<use>-pam server</use>
+			<env>DEB_NAME_SUFFIX=-audit,CLIP_VROOTS=/mounts/audit_root,VERIEXEC_CTX=503</env>
+		</pkg>
+		<pkg>
+			<pkgkey>ssh-admin</pkgkey>
+			<pkgnames>
+				net-misc/openssh
+			</pkgnames>
+			<use>-pam server</use>
+			<env>DEB_NAME_SUFFIX=-admin,CLIP_VROOTS=/mounts/admin_root,VERIEXEC_CTX=504</env>
+		</pkg>
+		<pkg>
+			<pkgkey>usb-menu</pkgkey>
+			<pkgnames>
+				app-clip/clip-usb-clt
+			</pkgnames>
+		</pkg>
+	</config>

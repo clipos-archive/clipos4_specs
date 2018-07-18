@@ -1,0 +1,55 @@
+	clip
+	clip-ccsd
+        clip-strongswan
+        clip-build
+        clip-core
+        clip-deps
+        core-deps
+        clip-tcb
+        hardened
+        bzip2
+        nptl
+        nptlonly
+        -nls
+        erandom
+        userlocales
+        -tcpd
+        -bash-completion
+        -python
+        python_targets_python2_7
+        python_single_target_python2_7
+        readline
+        ssl
+        -introspection
+        -udev
+        pam
+#ifdef CLIP_ARCH_x86
+	mmx
+	mmxext
+	sse
+	sse2
+	x86emu
+#endif
+#ifdef WITH_HERMES
+	clip-hermes
+#else
+	clip-anssi
+#endif
+
+#ifdef EXPORT
+	-clip-ccsd
+	-clip-anssi
+	-clip-hermes
+	clip-export
+#endif
+
+#ifdef CLIP_CIVIL
+	clip-civil
+#endif
+
+#ifdef WITH_RB
+	clip-rb
+	clip-vpn
+#endif
+
+#include "../include/common_use_flags.xml"

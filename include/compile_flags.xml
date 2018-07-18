@@ -1,0 +1,31 @@
+
+#ifdef CLIP_ARCH_x86
+	<profile>clip-build/x86</profile>
+#ifdef EXPORT
+	<cflags>-Os -march=i686 -Wall -fno-omit-frame-pointer -U_FORTIFY_SOURCE -pipe</cflags>
+#else
+	<cflags>-O2 -Wall -march=prescott -mtune=generic -mfpmath=sse -mmmx -msse -msse2 -fomit-frame-pointer -pipe</cflags>
+#endif
+#endif
+
+#ifdef CLIP_ARCH_amd64
+	<profile>clip-build/amd64</profile>
+#ifdef EXPORT
+	<cflags>-Os -march=core2 -Wall -fno-omit-frame-pointer -U_FORTIFY_SOURCE -pipe -Wformat -Werror=format-security</cflags>
+#else
+	<cflags>-O2 -Wall -march=broadwell -mtune=broadwell -fomit-frame-pointer -pipe -Wformat -Wformat-security</cflags>
+#endif
+#endif
+
+
+#ifdef CLIP_ARCH_armel
+	<profile>clip-build/armel</profile>
+	<cflags>-O2 -Wall -fomit-frame-pointer -pipe -march=armv7-a -mcpu=cortex-a9 -mfloat-abi=hard -mfpu=vfpv3-d16</cflags>
+#endif
+
+
+	<ldflags>-Wl,-O1 -Wl,--as-needed -Wl,--sort-common -Wl,--warn-once -Wl,--hash-style=gnu</ldflags>
+
+	<features>noman noinfo nodoc noinclude nolocales nostatlib nosuid strict sfperms</features>
+
+

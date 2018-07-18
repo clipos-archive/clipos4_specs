@@ -1,0 +1,13 @@
+                                                                                                                                  
+	<env>LINGUAS=fr, INPUT_DRIVERS=keyboard mouse, PYTHON_TARGETS=python2_7, PYTHON_SINGLE_TARGET=python2_7, KERNEL_DIR=/usr/src/linux, KBUILD_OUTPUT=/usr/src/linux, DEB_DISTRIBUTION=clip,VERIEXEC_CTX=0,VERIEXEC_LIB_CTX=0, DEB_PRIORITY=Important, DEB_IMPACT=0, DEB_URGENCY=NA, CLIP_ROOT_DISK=sda, CLIP_ROOT_DEV=5
+
+#ifdef CLIP_ARCH_x86                                                                                                           
+	  CPP=i686-pc-linux-gnu-cpp-4.7.4 , CXX=i686-pc-linux-gnu-g++-4.7.4 , CC=i686-pc-linux-gnu-gcc-4.7.4,
+	  VIDEO_CARDS=fbdev intel radeon nouveau i915 i965 r100 r200 r300 r600
+#endif
+  
+#ifdef CLIP_ARCH_armel
+          VIDEO_CARDS=fbdev                                                                                                       
+#endif
+        </env>
+          

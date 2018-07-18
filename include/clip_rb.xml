@@ -1,0 +1,12 @@
+#ifdef WITH_RB
+	<config>
+		<confname>core-rb</confname>
+		<env>DEB_PRIORITY=Required</env>
+		<pkg>
+			<pkgkey>rb-update</pkgkey>
+			<pkgnames>
+				www-servers/nginx
+			</pkgnames>
+		</pkg>
+	</config>
+#endif

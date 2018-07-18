@@ -1,0 +1,251 @@
+#include "../include/export_definitions.xml"
+
+<spec>
+	<specname>CLIP</specname>
+
+#include "../include/compile_flags.xml"
+
+#include "../include/clip_env.xml"
+
+	<use>
+#include "../include/clip_use_flags.xml"
+	core-rm
+	clip-x11
+	jpeg
+	png
+	truetype
+	bitmap-fonts
+	truetype-fonts
+	X
+	</use>
+
+
+#include "../include/clip_core-essential.xml"
+
+
+	<config>
+		<confname>core-essential-cliprm</confname>
+		<use>minimal</use>
+		<env>DEB_ESSENTIAL=y, DEB_PRIORITY=Required</env>
+		<pkg>
+			<pkgkey>alsa</pkgkey>
+			<pkgnames>
+				dev-util/dialog
+				media-libs/libsamplerate
+				media-libs/alsa-lib
+				media-sound/alsa-utils
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>usbdevs</pkgkey>
+			<pkgnames>
+				net-print/usb-printer-devices
+				media-gfx/usb-scanner-devices
+				media-gfx/usb-video-devices
+			</pkgnames>
+		</pkg>
+	</config>
+
+
+#include "../include/clip_core.xml"
+
+
+	<config>
+		<confname>core-cliprm</confname>
+		<use>minimal</use>
+		<env>DEB_PRIORITY=Required</env>
+		<keywords>
+			net-misc/stunnel ~x86 ~arm
+			dev-libs/softhsm ~x86 ~arm
+		</keywords>
+		<pkg>
+			<pkgkey>net</pkgkey>
+			<pkgnames>
+				app-clip/clip-generic-net
+				app-clip/clip-net
+				dev-libs/libnl
+				virtual/clip-net-virtual
+				net-firewall/iptables
+				net-firewall/ipsec-tools
+				net-libs/libpcap
+				net-misc/strongswan
+				sys-apps/ethtool
+				sys-apps/hwids
+				sys-apps/iproute2
+				sys-apps/net-tools
+				net-analyzer/arping
+				net-libs/libnet
+#ifdef WITH_HERMES
+				net-misc/stunnel
+#endif
+				net-wireless/crda
+				net-wireless/wireless-regdb
+				net-wireless/wireless-tools
+				net-wireless/wpa_supplicant
+				net-misc/dhcpcd
+				app-clip/clip-netd
+			</pkgnames>
+			<use>-minimal nat wps
+			openssl
+#ifdef IPSEC_X509
+			-clip-ccsd
+#endif
+			-strongswan_plugins_led
+			-strongswan_plugins_lookip
+			-strongswan_plugins_systime-fix
+			-strongswan_plugins_unity
+			-strongswan_plugins_vici
+			</use>
+		</pkg>
+		<pkg>
+			<pkgkey>libgcrypt</pkgkey>
+			<pkgnames>
+				dev-libs/libgcrypt
+			</pkgnames>
+			<use>icu secure-delete</use>
+		</pkg>
+		<pkg>
+			<pkgkey>smartcards-openpgp</pkgkey>
+			<pkgnames>
+				app-crypt/scdaemon
+			</pkgnames>
+			<use>usb pcsclite threads</use>
+		</pkg>
+		<pkg>
+			<pkgkey>auditd</pkgkey>
+			<pkgnames>
+				sys-process/audit
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>vserver</pkgkey>
+			<pkgnames>
+				app-clip/clip-vserver
+			</pkgnames>
+			<use>java</use>
+		</pkg>
+		<pkg>
+			<pkgkey>pki</pkgkey>
+			<pkgnames>
+#ifndef EXPORT
+				dev-libs/libanssipki-crypto
+				dev-libs/gmp
+#endif
+				dev-libs/softhsm
+				dev-db/sqlcipher
+				dev-lang/tcl
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>devices</pkgkey>
+			<pkgnames>
+				clip-layout/rm-devices
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/vsdev/rm_h /mounts/vsdev/rm_b</env>
+		</pkg>
+		<pkg>
+			<pkgkey>cryptd</pkgkey>
+			<pkgnames>
+				app-crypt/cryptd-server
+			</pkgnames>
+		</pkg>
+	</config>
+
+#include "../include/clip_x11-base.xml"
+
+#include "../include/clip_pkgs-main.xml"
+
+#include "../include/clip_pkgs-gui.xml"
+
+	<config>
+		<confname>pkgs-cliprm</confname>
+		<env>CPREFIX=/usr/local</env>
+		<use>dbus</use>
+		<ldflags>-Wl,-rpath,/usr/local/lib</ldflags>
+		<provided>sys-kernel/gentoo-sources-2.6.15-r7
+			sys-apps/baselayout-1.11.14-r6
+			<!-- Needed to protect the build host system against target baselayout
+			     It will be merged explicitly to the target -->
+			clip-layout/baselayout-clip-1.0-r1
+		</provided>
+		<mask>
+			>=virtual/x11-6.8
+			>=x11-base/xorg-x11-6.8.0
+		</mask>
+		<keywords>
+			x11-misc/xdialog ~x86 ~arm
+			dev-libs/dbus-glib ~x86 ~arm
+			clip-conf/clip-apps-conf ~x86 ~arm
+			x11-misc/adeskbar x86 ~arm
+		</keywords>		
+		<pkg>
+			<pkgkey>chroot</pkgkey>
+			<pkgnames>
+				app-clip/chroot-launch
+			</pkgnames>
+			<env>VERIEXEC_CTX=502</env>
+		</pkg>
+		<pkg>
+			<pkgkey>jail</pkgkey>
+			<pkgnames>
+				app-clip/jailrequest
+			</pkgnames>
+		</pkg>
+	</config>
+	
+#include "../include/clip_views.xml"
+
+	<config> 
+		<confname>rm_viewer</confname>
+		<env>CLIP_VROOTS=/viewers/rm_h /viewers/rm_b</env>
+		<!-- needed for thightvnc -->
+		<ldflags>-Wl,-rpath,/usr/local/lib</ldflags>
+		<pkgdir>viewers/rm_b</pkgdir>
+		<use>-pam</use>
+		<pkg>
+			<pkgkey>layout</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-viewer
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>bbviewer</pkgkey>
+			<pkgnames>
+				sys-apps/busybox
+			</pkgnames>
+			<env>DEB_NAME_SUFFIX=-viewer</env>
+			<use>static make-symlinks</use>
+		</pkg>
+		<pkg>
+			<pkgkey>vnc</pkgkey>
+			<pkgnames>
+				net-misc/tigervnc
+			</pkgnames>
+		        <ldflags>-Wl,-rpath,/usr/local/lib/fltk</ldflags>
+			<env>CPREFIX=/usr/local</env>
+		</pkg>
+	</config>
+
+	<config> 
+		<confname>rm_root</confname>
+		<pkgdir>rm</pkgdir>
+		<env>CLIP_VROOTS=/vservers/rm_h /vservers/rm_b, DEB_PRIORITY=Required</env>
+		<use>-pam</use>
+		<pkg>
+			<pkgkey>layout</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-rm
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>bbrm</pkgkey>
+			<pkgnames>
+				sys-apps/busybox
+			</pkgnames>
+			<env>DEB_NAME_SUFFIX=-rm</env>
+			<use>static make-symlinks</use>
+		</pkg>
+	</config>
+
+
+</spec>

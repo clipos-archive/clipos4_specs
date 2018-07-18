@@ -1,0 +1,115 @@
+#include "../include/export_definitions.xml"
+
+<spec>
+	<specname>GTW</specname>
+
+#include "../include/compile_flags.xml"
+
+#include "../include/clip_env.xml"
+
+	<use>
+#include "../include/clip_use_flags.xml"
+	clip-single
+	clip-gtw
+	clip-x11
+	jpeg
+	png
+	truetype
+	bitmap-fonts
+	truetype-fonts
+	X
+	</use>
+
+
+#include "../include/clip_core-essential.xml"
+
+#include "../include/clip_core.xml"
+
+
+	<config>
+		<confname>core-clipgtw</confname>
+		<use>minimal</use>
+		<env>DEB_PRIORITY=Required</env>
+		<pkg>
+			<pkgkey>net</pkgkey>
+			<pkgnames>
+				app-clip/clip-generic-net
+				app-clip/clip-gtw-net
+				dev-libs/libnl
+				virtual/clip-net-virtual
+				net-firewall/iptables
+				net-firewall/ipsec-tools
+				net-libs/libpcap
+				net-misc/strongswan
+				sys-apps/ethtool
+				sys-apps/hwids
+				sys-apps/iproute2
+				sys-apps/net-tools
+				net-analyzer/arping
+				net-libs/libnet
+				net-wireless/crda
+				net-wireless/wireless-regdb
+				net-wireless/wireless-tools
+				net-wireless/wpa_supplicant
+				net-misc/dhcpcd
+				app-clip/clip-netd
+			</pkgnames>
+			<use>-minimal nat -ikev1 wps
+			openssl
+#if defined(IPSEC_X509) || defined(WITH_HERMES)
+			-clip-ccsd
+#endif
+			-strongswan_plugins_led
+			-strongswan_plugins_lookip
+			-strongswan_plugins_systime-fix
+			-strongswan_plugins_unity
+			-strongswan_plugins_vici
+			</use>
+		</pkg>
+		<!--
+		<pkg>
+			<pkgkey>auditd</pkgkey>
+			<pkgnames>
+				sys-process/audit
+			</pkgnames>
+		</pkg>
+		-->
+		<pkg>
+			<pkgkey>mdadm</pkgkey>
+			<pkgnames>
+				app-clip/clip-mdadm
+				sys-fs/mdadm
+			</pkgnames>
+		</pkg>
+	</config>
+
+#include "../include/clip_x11-base.xml"
+
+#include "../include/clip_pkgs-main.xml"
+
+#include "../include/clip_pkgs-gui.xml"
+
+#include "../include/clip_views.xml"
+
+	<config>
+		<confname>views-clipgtw</confname>
+               <pkg>
+                        <pkgkey>mdadm-clt</pkgkey>
+                        <pkgnames>
+                                app-clip/clip-mdadm-clt
+                        </pkgnames>
+                        <env>CLIP_VROOTS=/mounts/admin_root</env>
+                </pkg>
+	</config>
+
+  <config>
+    <confname>sup-clipgtw</confname>
+    <env>CPREFIX=/usr/local</env>
+    <pkg>
+      <pkgkey>supervision</pkgkey>
+      <pkgnames>
+        net-analyzer/clip-nagios-svagents
+      </pkgnames>
+    </pkg>
+  </config>
+</spec>

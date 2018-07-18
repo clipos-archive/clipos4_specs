@@ -1,0 +1,124 @@
+#include "../include/export_definitions.xml"
+
+<spec>
+	<specname>BARE</specname>
+
+#include "../include/compile_flags.xml"
+
+#include "../include/clip_env.xml"
+
+	<use>
+#include "../include/clip_use_flags.xml"
+	clip-single
+	clip-bare
+	pf_ring
+	-alsa
+	-bitmap-fonts
+	-cairo
+	-cups
+	-gif
+	-gstreamer
+	-gtk
+	-jpeg
+	-kde
+	-midi
+	-ogg
+	-opengl
+	-png
+	-pulseaudio
+	-qt
+	-qt3support
+	-qt4
+	-svg
+	-tiff
+	-truetype
+	-truetype-fonts
+	-xcb
+	-xorg
+	-X
+	</use>
+
+
+#include "../include/clip_core-essential.xml"
+
+#include "../include/clip_core.xml"
+
+
+	<config>
+		<confname>core-clipbare</confname>
+		<use>minimal</use>
+		<env>DEB_PRIORITY=Required</env>
+		<pkg>
+			<pkgkey>net</pkgkey>
+			<pkgnames>
+				app-clip/clip-generic-net
+				app-clip/clip-gtw-net
+				dev-libs/libnl
+				virtual/clip-net-virtual
+				net-firewall/iptables
+				net-firewall/ipsec-tools
+				net-libs/libpcap
+				net-misc/strongswan
+				sys-apps/ethtool
+				sys-apps/hwids
+				sys-apps/iproute2
+				sys-apps/net-tools
+				sys-auth/pam_jail
+				net-analyzer/arping
+				net-libs/libnet
+				net-wireless/crda
+				net-wireless/wireless-regdb
+				net-wireless/wireless-tools
+				net-wireless/wpa_supplicant
+				net-misc/dhcpcd
+				app-clip/clip-netd
+			</pkgnames>
+			<use>-minimal nat -ikev1
+#ifdef IPSEC_X509
+			-clip-ccsd
+			openssl
+#else
+			-openssl
+#endif
+			</use>
+		</pkg>
+		<!--
+		<pkg>
+			<pkgkey>auditd</pkgkey>
+			<pkgnames>
+				sys-process/audit
+			</pkgnames>
+		</pkg>
+		-->
+		<pkg>
+			<pkgkey>mdadm</pkgkey>
+			<pkgnames>
+				app-clip/clip-mdadm
+				sys-fs/mdadm
+			</pkgnames>
+		</pkg>
+	</config>
+
+#include "../include/clip_pkgs-main.xml"
+
+#include "../include/clip_views.xml"
+
+#include "../include/clip_rb.xml"
+
+	<config>
+		<confname>views-clipbare</confname>
+		<pkg>
+			<pkgkey>mdadm-clt</pkgkey>
+			<pkgnames>
+				app-clip/clip-mdadm-clt
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/admin_root</env>
+		</pkg>
+	</config>
+
+#ifdef BARE_INCLUDE
+#define INCLUDE_NAME() BARE_INCLUDE
+#include INCLUDE_NAME() 
+#endif
+
+</spec>

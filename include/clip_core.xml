@@ -1,0 +1,267 @@
+	<config>
+		<confname>core</confname>
+		<use>minimal</use>
+		<env>DEB_PRIORITY=Required</env>
+		<keywords>
+			sys-fs/dosfstools ~x86 ~arm
+			clip-conf/clip-core-conf ~x86 ~arm
+#ifdef CLIP_KERNEL_3_14
+			sys-kernel/extra-firmwares ~x86
+			sys-kernel/wireless-firmwares ~x86
+#endif
+		</keywords>
+		<virtuals>
+			virtual/dev-manager clip-layout/baselayout-clip
+			virtual/baselayout sys-apps/baselayout
+		</virtuals>
+		<pkg>
+			<pkgkey>config</pkgkey>
+			<pkgnames>
+				clip-conf/clip-core-conf
+			</pkgnames>
+			<use>
+#ifdef WITH_HERMES
+			clip-hermes
+#endif
+#ifdef CLIP_KERNEL_3_14
+			clip-kernel-3_14
+#endif
+#ifdef CLIP_KERNEL_4_9
+			clip-kernel-4_9
+#endif
+			</use>
+		</pkg>
+		<pkg>
+			<pkgkey>core-libs</pkgkey>
+			<pkgnames>
+				app-arch/xz-utils
+				dev-libs/libffi
+			</pkgnames>
+			<env>DEB_NAME_SUFFIX=-core</env>
+		</pkg>
+		<pkg>
+			<pkgkey>libs</pkgkey>
+			<pkgnames>
+				clip-libs/clip-lib
+				clip-libs/clip-libvserver
+				dev-libs/eventlog
+				dev-libs/expat
+				dev-libs/glib
+				dev-libs/libpcre
+				sys-libs/e2fsprogs-libs
+				sys-libs/pam
+				sys-libs/readline
+				sys-libs/timezone-data
+				sys-apps/attr
+				sys-libs/libcap
+				virtual/libiconv
+				sys-libs/libseccomp
+			</pkgnames>
+			<use>cracklib -introspection -jit</use>
+		</pkg>
+		<pkg>
+			<pkgkey>libintl</pkgkey>
+			<pkgnames>
+				virtual/libintl
+			</pkgnames>
+			<use>nls</use>
+		</pkg>
+		<pkg>
+			<pkgkey>cracklib</pkgkey>
+			<pkgnames>
+				sys-libs/cracklib
+			</pkgnames>
+			<use>nls</use>
+		</pkg>
+		<pkg>
+			<pkgkey>apps</pkgkey>
+			<pkgnames>
+				app-admin/logrotate
+				app-admin/syslog-ng
+				app-clip/hotplug-clip
+				app-crypt/hashalot
+				sys-apps/diffutils
+				sys-apps/file
+				sys-apps/findutils
+				sys-apps/kbd
+				sys-apps/shadow
+				sys-apps/tcb
+				sys-auth/pam_userpass
+				sys-process/cronbase
+				sys-process/dcron
+				sys-process/procps
+			</pkgnames>
+			<use>nousuid</use>
+		</pkg>
+		<pkg>
+			<pkgkey>crypt</pkgkey>
+			<pkgnames>
+#ifndef CLIP_CIVIL
+				<!-- openssl is essential to apply updates in distributions
+				 using civil cryptography only. Distributions relying on
+				 CCSD crypto keep it in clip_core (where it was originally,
+				 but when CLIP_CIVIL is defined, openssl appears in
+				 clip_core-esssential. -->
+				dev-libs/openssl
+#endif
+				dev-libs/libgpg-error
+				dev-libs/popt
+				sys-fs/lvm2
+				sys-fs/cryptsetup
+				sys-apps/timer_entropyd
+			</pkgnames>
+			<!-- gcrypt backend does not work with static
+			     ATM, use openssl -->
+			<use>-lvm1 -gcrypt openssl static -thin unicode urandom</use>
+		</pkg>
+		<pkg>
+			<pkgkey>kernel-helpers</pkgkey>
+			<pkgnames>
+				sys-apps/kmod
+				app-arch/cpio
+				sys-kernel/extra-firmwares
+				sys-kernel/wireless-firmwares
+			</pkgnames>
+			<use>-openrc lzma</use>
+		</pkg>
+		<pkg>
+			<pkgkey>bbinitrd</pkgkey>
+			<pkgnames>
+				sys-apps/busybox
+			</pkgnames>
+			<use>static</use>
+			<env>DEB_NAME_SUFFIX=-initrd</env>
+		</pkg>
+		<pkg>
+			<pkgkey>verictl</pkgkey>
+			<pkgnames>
+				app-clip/verictl
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>vsctl</pkgkey>
+			<pkgnames>
+				app-clip/vsctl
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>loader</pkgkey>
+			<pkgnames>
+#if defined(CLIP_ARCH_x86) || defined(CLIP_ARCH_amd64)
+				sys-boot/syslinux
+#endif
+#ifdef CLIP_ARCH_armel
+				dev-embedded/u-boot-tools
+#endif
+			</pkgnames>
+#ifdef CLIP_ARCH_x86
+			<env>CC=i686-pc-linux-gnu-gcc-5.3.0</env>
+#endif
+		</pkg>
+		<pkg>
+			<pkgkey>homes</pkgkey>
+			<pkgnames>
+				sys-process/psmisc
+				sys-auth/pam_exec_pwd
+				app-clip/clip-user-mount
+			</pkgnames>
+#if defined(CLIP_ARCH_x86) || defined(CLIP_ARCH_amd64)
+			<use>sse2</use>
+#endif
+		</pkg>
+		<pkg>
+			<pkgkey>devel</pkgkey>
+			<pkgnames>
+				net-analyzer/tcpdump
+				app-editors/vim-core
+				app-editors/vim
+				dev-util/strace
+				sys-apps/paxctl
+				sys-libs/libcap-ng
+				sys-devel/gdb
+				www-client/elinks
+				x11-apps/xev
+				x11-apps/xprop
+				app-misc/evtest
+				dev-tcltk/expect
+			</pkgnames>
+			<use>livecd -make-symlinks</use>
+		</pkg>
+#if defined(CLIP_ARCH_x86) || defined(CLIP_ARCH_amd64)
+		<pkg>
+			<pkgkey>splash</pkgkey>
+			<pkgnames>
+				media-libs/freetype
+				media-libs/libpng
+				media-libs/libjpeg-turbo
+				media-gfx/splash-theme-clip
+				media-gfx/splashutils
+			</pkgnames>
+		</pkg>
+#endif
+		<pkg>
+			<pkgkey>services</pkgkey>
+			<pkgnames>
+				app-clip/core-services
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>usb-keys</pkgkey>
+			<pkgnames>
+				sys-fs/dosfstools
+				sys-fs/ntfs3g
+				sys-apps/pv
+				app-clip/clip-usb-keys
+			</pkgnames>
+			<use>-ntfsprogs -external-fuse</use>
+		</pkg>
+    <pkg>
+      <pkgkey>tpm-cmd</pkgkey>
+      <pkgnames>
+        app-crypt/tpm-cmd
+      </pkgnames>
+    </pkg>
+		<pkg>
+			<pkgkey>user-adm</pkgkey>
+			<pkgnames>
+				app-clip/userd-server
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>pwcheckd</pkgkey>
+			<pkgnames>
+				sys-auth/pwcheckd
+			</pkgnames>
+		</pkg>
+		<pkg>
+			<pkgkey>ntp</pkgkey>
+			<pkgnames>
+				net-misc/ntp
+			</pkgnames>
+			<use>caps</use>
+		</pkg>
+		<pkg>
+			<pkgkey>smartcards</pkgkey>
+			<pkgnames>
+				app-crypt/ccid
+				sys-apps/pcsc-lite
+				sys-auth/pam_pkcs11
+				dev-libs/libp11
+				dev-libs/opensc
+				app-crypt/pkcs11-proxy
+				app-clip/fdp
+				dev-libs/engine_pkcs11
+				dev-libs/libltdl
+				dev-libs/libtasn1
+				sys-auth/ckiutl
+				app-clip/smartcard-monitor
+				sys-auth/libgtop11dotnet
+#ifdef CLIP_ARCH_x86
+				sys-auth/libxltck
+#endif
+				dev-libs/boost
+			</pkgnames>
+			<use>usb pcsclite pcsc-lite secure-messaging threads</use>
+		</pkg>
+	</config>
+	

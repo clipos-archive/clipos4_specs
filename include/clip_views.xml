@@ -1,0 +1,100 @@
+
+	<config>
+		<confname>views</confname>
+		<pkg>
+			<pkgkey>user</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-user
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/user_root</env>
+		</pkg>
+		<pkg>
+			<pkgkey>update</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-update
+			</pkgnames>
+			<env>CLIP_VROOTS=/update_root, DEB_PRIORITY=Required</env>
+		</pkg>
+		<pkg>
+			<pkgkey>bbupdate</pkgkey>
+			<pkgnames>
+				sys-apps/busybox
+			</pkgnames>
+			<use>-static make-symlinks</use>
+			<env>CLIP_VROOTS=/update_root, DEB_PRIORITY=Required, DEB_NAME_SUFFIX=-update</env>
+		</pkg>
+		<pkg>
+			<pkgkey>audit</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-audit
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/audit_root</env>
+		</pkg>
+		<pkg>
+			<pkgkey>bbaudit</pkgkey>
+			<pkgnames>
+				sys-apps/busybox
+			</pkgnames>
+			<use>-static make-symlinks</use>
+			<env>CLIP_VROOTS=/mounts/audit_root, DEB_NAME_SUFFIX=-audit</env>
+		</pkg>
+		<pkg>
+			<pkgkey>admin</pkgkey>
+			<pkgnames>
+				app-clip/downloadrequest
+				app-clip/install-ccsd
+				clip-dev/clip-installer
+				clip-layout/baselayout-core-admin
+			</pkgnames>
+			<use>nls</use>
+			<env>CLIP_VROOTS=/mounts/admin_root</env>
+		</pkg>
+		<pkg>
+			<pkgkey>bbadmin</pkgkey>
+			<pkgnames>
+				sys-apps/busybox
+				app-editors/nano
+			</pkgnames>
+			<use>-static make-symlinks nls ncurses</use>
+			<env>CLIP_VROOTS=/mounts/admin_root, DEB_NAME_SUFFIX=-admin</env>
+		</pkg>
+		<pkg>
+			<pkgkey>user_priv</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-userpriv
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/user_priv, DEB_PRIORITY=Required</env>
+		</pkg>
+		<pkg>
+			<pkgkey>update_priv</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-updatepriv
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/update_priv, DEB_PRIORITY=Required</env>
+		</pkg>
+		<pkg>
+			<pkgkey>audit_priv</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-auditpriv
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/audit_priv, DEB_PRIORITY=Required</env>
+		</pkg>
+		<pkg>
+			<pkgkey>admin_priv</pkgkey>
+			<pkgnames>
+				clip-layout/baselayout-core-adminpriv
+			</pkgnames>
+			<env>CLIP_VROOTS=/mounts/admin_priv, DEB_PRIORITY=Required</env>
+		</pkg>
+
+		<pkg>
+			<!-- update verictl binary, with different package name -->
+			<pkgkey>verictl</pkgkey>
+			<pkgnames>
+				app-clip/verictl
+			</pkgnames>
+			<use>veriexec-guest</use>
+			<env>VERIEXEC_CTX=501,CLIP_VROOTS=/update_root,DEB_NAME_SUFFIX=-update, DEB_PRIORITY=Required</env>
+		</pkg>	
+	</config>
+
