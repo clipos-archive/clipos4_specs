@@ -29,8 +29,10 @@
 			<pkgkey>libs</pkgkey>
 			<pkgnames>
 				clip-libs/clip-sub
+#ifndef CLIP_OSS_WIP
 				clip-libs/libacidfile
 				clip-libs/libacidcrypt
+#endif
 				sys-libs/db
 				sys-libs/ncurses
 				sys-libs/zlib
@@ -152,6 +154,7 @@
 			</pkgnames>
 			<env>VERIEXEC_CTX=501</env>
 		</pkg>
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>devicemanagement</pkgkey>
 			<pkgnames>
@@ -159,6 +162,7 @@
 			</pkgnames>
 			<env>DEB_NAME_SUFFIX=-update, VERIEXEC_CTX=501</env>
 		</pkg>
+#endif
 		<pkg>
 			<pkgkey>perl</pkgkey>
 			<pkgnames>

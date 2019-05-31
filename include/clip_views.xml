@@ -42,7 +42,9 @@
 			<pkgkey>admin</pkgkey>
 			<pkgnames>
 				app-clip/downloadrequest
+#ifndef CLIP_OSS_WIP
 				app-clip/install-ccsd
+#endif
 				clip-dev/clip-installer
 				clip-layout/baselayout-core-admin
 			</pkgnames>

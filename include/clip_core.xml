@@ -119,8 +119,10 @@
 			<pkgnames>
 				sys-apps/kmod
 				app-arch/cpio
+#ifndef CLIP_OSS_WIP
 				sys-kernel/extra-firmwares
 				sys-kernel/wireless-firmwares
+#endif
 			</pkgnames>
 			<use>-openrc lzma</use>
 		</pkg>
@@ -215,12 +217,14 @@
 			</pkgnames>
 			<use>-ntfsprogs -external-fuse</use>
 		</pkg>
+#ifndef CLIP_OSS_WIP
     <pkg>
       <pkgkey>tpm-cmd</pkgkey>
       <pkgnames>
         app-crypt/tpm-cmd
       </pkgnames>
     </pkg>
+#endif
 		<pkg>
 			<pkgkey>user-adm</pkgkey>
 			<pkgnames>
@@ -254,7 +258,9 @@
 				dev-libs/libtasn1
 				sys-auth/ckiutl
 				app-clip/smartcard-monitor
+#ifndef CLIP_OSS_WIP
 				sys-auth/libgtop11dotnet
+#endif
 #ifdef CLIP_ARCH_x86
 				sys-auth/libxltck
 #endif

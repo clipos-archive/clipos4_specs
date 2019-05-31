@@ -11,7 +11,11 @@
 #ifdef CLIP_ARCH_amd64
 	<profile>clip-build/amd64</profile>
 #ifdef EXPORT
+#ifdef CLIP_OSS_WIP
+	<cflags>-O2 -Wall -march=core2 -mtune=core2 -fomit-frame-pointer -pipe -Wformat -Wformat-security</cflags>
+#else
 	<cflags>-Os -march=core2 -Wall -fno-omit-frame-pointer -U_FORTIFY_SOURCE -pipe -Wformat -Werror=format-security</cflags>
+#endif
 #else
 	<cflags>-O2 -Wall -march=broadwell -mtune=broadwell -fomit-frame-pointer -pipe -Wformat -Wformat-security</cflags>
 #endif

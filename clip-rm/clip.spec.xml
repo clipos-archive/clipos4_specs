@@ -144,12 +144,14 @@
 			</pkgnames>
 			<env>CLIP_VROOTS=/mounts/vsdev/rm_h /mounts/vsdev/rm_b</env>
 		</pkg>
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>cryptd</pkgkey>
 			<pkgnames>
 				app-crypt/cryptd-server
 			</pkgnames>
 		</pkg>
+#endif
 	</config>
 
 #include "../include/clip_x11-base.xml"

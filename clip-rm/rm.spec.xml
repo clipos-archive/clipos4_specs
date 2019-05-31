@@ -55,8 +55,10 @@
 				sys-libs/glibc
 				sys-libs/ncurses
 				sys-libs/zlib
+#ifndef CLIP_OSS_WIP
 				clip-libs/libacidfile
 				clip-libs/libacidcrypt
+#endif
 			</pkgnames>
 			<use>glibc-omitfp minizip</use>
 		</pkg>
@@ -64,7 +66,11 @@
 			<pkgkey>gcc-lib</pkgkey>
 			<pkgnames>
 #ifdef CLIP_ARCH_amd64
+#ifdef CLIP_OSS_WIP
+				sys-devel/gcc
+#else
 				sys-devel/gcc:5
+#endif
 #else
 				sys-devel/gcc:4.9
 #endif
@@ -397,7 +403,11 @@
 				sys-apps/dbus
 				x11-libs/startup-notification
 				x11-misc/shared-mime-info
+#ifdef CLIP_OSS_WIP
+				x11-themes/oxygen-gtk
+#else
 				x11-themes/oxygen-gtk:2
+#endif
 			</pkgnames>
 			<use>apng bzip2 cups tiff -gdbm -jit svg unicode</use>
 		</pkg>
@@ -674,7 +684,9 @@
         dev-python/python-nbxmpp
         dev-python/cffi
         dev-python/enum34
+#ifndef CLIP_OSS_WIP
         dev-python/pycparser
+#endif
         virtual/python-ipaddress
 				dev-tcltk/blt
 			</pkgnames>
@@ -735,6 +747,7 @@
 				app-text/convmv
 			</pkgnames>
 		</pkg>
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>user-documentation</pkgkey>
 			<pkgnames>
@@ -742,6 +755,7 @@
 			</pkgnames>
 			<use>clip</use>
 		</pkg>
+#endif
 		<pkg>
 			<pkgkey>update-user-data</pkgkey>
 			<pkgnames>app-clip/clip-update-user-data</pkgnames>
@@ -1027,6 +1041,7 @@
 				sys-devel/make
 			</pkgnames>
 		</pkg>
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>flash</pkgkey>
 			<pkgnames>
@@ -1035,6 +1050,7 @@
 			</pkgnames>
 			<use>flash pdf cpu_flags_x86_sse2</use>
 		</pkg>
+#endif
 		<pkg>
 			<pkgkey>gantt</pkgkey>
 			<pkgnames>
@@ -1178,6 +1194,7 @@
 			</pkgnames>
 			<use>audio -eselect video agg alsa ogg sse icu -opengl expat python pulseaudio ssl</use>
 		</pkg>
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>wine-crypt</pkgkey>
 			<pkgnames>
@@ -1224,6 +1241,7 @@
 			<env>DEB_JAILS=rm_b</env>
 			<ldflags>-Wl,-rpath,/usr/local/lib/qt4</ldflags>			
 		</pkg>
+#endif
 		<pkg>
 			<pkgkey>texlive</pkgkey>
 			<pkgnames>
@@ -1388,6 +1406,7 @@
 			</pkgnames>
 			<use>pdf cairo</use>
 		</pkg>
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>wine</pkgkey>
 			<pkgnames>
@@ -1419,6 +1438,7 @@
 			<env>DEB_JAILS=rm_h</env>
 #endif
 		</pkg>
+#endif
 		<pkg>
 			<pkgkey>stardict</pkgkey>
 			<pkgnames>
@@ -1776,7 +1796,9 @@
 				kde-apps/libkonq
 				kde-apps/plasma-apps
 				kde-base/dolphin
+#ifndef CLIP_OSS_WIP
 				kde-base/kde-env
+#endif
 			</pkgnames>
 			<use>svg thumbnail</use>
 		</pkg>
@@ -1941,7 +1963,7 @@
 			</pkgnames>
 			<use>cairo hunspell scripts tk</use>
 		</pkg>
-
+#ifndef CLIP_OSS_WIP
 		<pkg>
 			<pkgkey>config</pkgkey>
 			<pkgnames>
@@ -1952,6 +1974,7 @@
 			<use>rm-h</use>
 #endif
 		</pkg>
+#endif
 #ifdef WITH_HERMES
 		<pkg>
 			<pkgkey>config</pkgkey>
