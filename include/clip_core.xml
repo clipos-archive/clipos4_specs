@@ -249,7 +249,6 @@
 				dev-libs/libp11
 				dev-libs/opensc
 				app-crypt/pkcs11-proxy
-				app-clip/fdp
 				dev-libs/engine_pkcs11
 				dev-libs/libltdl
 				dev-libs/libtasn1

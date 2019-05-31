@@ -124,18 +124,19 @@
 			</pkgnames>
 			<use>java</use>
 		</pkg>
+#ifndef EXPORT
 		<pkg>
 			<pkgkey>pki</pkgkey>
 			<pkgnames>
-#ifndef EXPORT
 				dev-libs/libanssipki-crypto
 				dev-libs/gmp
-#endif
 				dev-libs/softhsm
 				dev-db/sqlcipher
 				dev-lang/tcl
+				app-clip/fdp
 			</pkgnames>
 		</pkg>
+#endif
 		<pkg>
 			<pkgkey>devices</pkgkey>
 			<pkgnames>
