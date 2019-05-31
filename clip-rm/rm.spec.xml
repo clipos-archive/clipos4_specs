@@ -209,6 +209,7 @@
 				x11-libs/libXdmcp
 				x11-libs/libXext
 				x11-libs/libXfixes
+				x11-libs/libXfont
 				x11-libs/libXfont2
 				x11-libs/libXft
 				x11-libs/libXi
@@ -614,7 +615,7 @@
 			<pkgnames>
 				app-text/sgml-common
 				app-text/build-docbook-catalog
-				=app-text/docbook-xml-dtd-4.2*
+				app-text/docbook-xml-dtd
 				app-text/docbook-xsl-stylesheets
 			</pkgnames>
 		</pkg>
@@ -797,8 +798,13 @@
 			clip-devel
 #endif
 			</use>
+#ifdef CLIP_ARCH_x86
 			<env>CPP=i686-pc-linux-gnu-cpp-5.3.0 , CXX=i686-pc-linux-gnu-g++-5.3.0 , CC=i686-pc-linux-gnu-gcc-5.3.0 , WANT_MP=true, LINGUAS=fr fr_FR fr-FR, ACCEPT_KEYWORDS=~x86
 			</env>
+#else
+			<env>CPP=x86_64-pc-linux-gnu-cpp-5.3.0 , CXX=x86_64-pc-linux-gnu-g++-5.3.0 , CC=x86_64-pc-linux-gnu-gcc-5.3.0 , WANT_MP=true, LINGUAS=fr fr_FR fr-FR, ACCEPT_KEYWORDS=amd64
+			</env>
+#endif
 		</pkg>
 		<pkg>
 			<pkgkey>claws-mail</pkgkey>
@@ -813,7 +819,7 @@
 		<pkg>
 			<pkgkey>libusb1</pkgkey>
 			<pkgnames>
-				=dev-libs/libusb-1*
+				dev-libs/libusb
 			</pkgnames>
 			<env>DEB_NAME_SUFFIX=1</env>
 		</pkg>
@@ -957,6 +963,9 @@
 			<use>X nsplugin alsa cairo gtk2 -javascript nss pax_kernel -cacao -jbootstrap -zero webstart opengl pulseaudio -doc</use>
 #ifdef CLIP_ARCH_x86
 			<env>CPP=i686-pc-linux-gnu-cpp-5.3.0, CXX=i686-pc-linux-gnu-g++-5.3.0, CC=i686-pc-linux-gnu-gcc-5.3.0, ALT_COMPILER_PATH=/usr/i686-pc-linux-gnu/gcc-bin/5.3.0/</env>
+#else
+			<env>CPP=x86_64-pc-linux-gnu-cpp-5.3.0 , CXX=x86_64-pc-linux-gnu-g++-5.3.0 , CC=x86_64-pc-linux-gnu-gcc-5.3.0 , WANT_MP=true, LINGUAS=fr fr_FR fr-FR, ACCEPT_KEYWORDS=amd64 ARCH_DATA_MODEL=64 ARCH=X86_64
+			</env>
 #endif
 		</pkg>
 		<pkg>
@@ -1671,9 +1680,7 @@
 			<pkgnames>
 				kde-apps/baloo-widgets
 				kde-base/baloo
-				kde-base/kdebase-runtime
-				kde-base/nepomuk-core
-				kde-base/nepomuk-widgets
+				kde-apps/kdebase-runtime-meta
 				kde-apps/kde-wallpapers
 				kde-base/khelpcenter
 				virtual/eject
@@ -1976,7 +1983,9 @@
 			<pkgnames>
 				app-text/libetonyek
 			</pkgnames>
+#ifdef CLIP_ARCH_x86
 			<env>CXX=i686-pc-linux-gnu-g++-4.9.3</env>
+#endif
 			<use>sqlite berkdb xml iodbc threads -mhash -python gmp unicode tiff</use>
 		</pkg>
 		<pkg>

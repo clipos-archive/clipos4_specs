@@ -9,7 +9,7 @@
 			sys-kernel/clip-kernel ~x86
 #endif
 #ifdef CLIP_KERNEL_4_9
-			sys-kernel/clip-kernel ~x86
+			sys-kernel/clip-kernel ~x86 ~amd64
 #endif
 		</keywords>
 		<virtuals>
